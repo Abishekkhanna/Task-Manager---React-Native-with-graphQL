@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+!.env.example
+
+.expo/
+dist/
+build/
+
+generated/
+
+*.log
+
+.DS_Store
