@@ -12,13 +12,28 @@ const server = new ApolloServer({
 });
 
 const startServer = async () => {
-  const { url } = await startStandaloneServer(server, {
-    listen: {
-      port: 4000,
-    },
-  });
+  try {
+    await prisma.$connect();
 
-  console.log(`🚀 Server running at ${url}`);
+    console.log("✅ Database connected");
+
+    const { url } = await startStandaloneServer(server, {
+      listen: {
+        port: 4000,
+      },
+      context: async ({ req }) => {
+        return getContext(req);
+      },
+    });
+
+    console.log(`🚀 Server running at ${url}`);
+  } catch (error) {
+    console.error("❌ Failed to start server:", error);
+
+    await prisma.$disconnect();
+
+    process.exit(1);
+  }
 };
 
 startServer();
