@@ -1,8 +1,23 @@
 const typeDef = `#graphql
+  enum TaskStatus {
+    TODO
+    IN_PROGRESS
+    COMPLETED
+  }
+
   type User {
     id: Int!
     name: String!
     email: String!
+    createdAt: String!
+    updatedAt: String!
+  }
+
+  type Task {
+    id: Int!
+    title: String!
+    description: String
+    status: TaskStatus!
     createdAt: String!
     updatedAt: String!
   }
@@ -30,6 +45,12 @@ const typeDef = `#graphql
       email: String!
       password: String!
     ): AuthPayload!
+
+    createTask(
+      title: String!
+      description: String
+      status: TaskStatus
+    ): Task!
   }
 `;
 
