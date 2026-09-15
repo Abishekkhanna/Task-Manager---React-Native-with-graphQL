@@ -12,3 +12,5 @@ generated/
 *.log
 
 .DS_Store
+
+.vscode/
